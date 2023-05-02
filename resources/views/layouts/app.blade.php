@@ -27,6 +27,24 @@
                 </header>
             @endif
 
+            @if (session('message'))
+                <div>
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div>
+                    <div>Something went wrong!</div>
+
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 @yield('content')

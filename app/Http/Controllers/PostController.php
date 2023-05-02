@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Car;
+use App\Models\Track;
 
 class PostController extends Controller
 {
@@ -25,7 +27,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $cars = Car::all();
+        $tracks = Track::all();
+        return view('posts.create', ['cars' => $cars, 'tracks' => $tracks]);
     }
 
     /**
@@ -36,7 +40,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedPost = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'car_id' => 'required|exists:cars,id',
+            'track_id' => 'required|exists:tracks,id',
+        ]);
+
+        $post = new Post;
+        $post->title = $validatedPost['title'];
+        $post->body = $validatedPost['body'];
+        $post->car_id = $validatedPost['car_id'];
+        $post->track_id = $validatedPost['track_id'];
+        $post->user_id = auth()->user()->id;
+        $post->save();
+
+        session()->flash('message', 'The post was successfully saved!');
+        return redirect()->route('posts.show', ['id' => $post->id]);
     }
 
     /**

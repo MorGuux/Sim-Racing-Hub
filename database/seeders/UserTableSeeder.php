@@ -19,8 +19,16 @@ class UserTableSeeder extends Seeder
         $u = new User();
         $u->name = 'Test User';
         $u->email = 'test@test.com';
-        $u->password = 'password123';
+        $u->password = bcrypt('password123', ['rounds' => env('BCRYPT_ROUNDS')]);
+        $u->is_admin = false;
         $u->save();
+
+        $u2 = new User();
+        $u2->name = 'Test Admin';
+        $u2->email = 'admin@test.com';
+        $u2->password = bcrypt('password123', ['rounds' => env('BCRYPT_ROUNDS')]);
+        $u2->is_admin = true;
+        $u2->save();
 
         User::factory()
             ->has(UserDetails::factory()->count(1))       // 1 user details per user

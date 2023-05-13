@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Car;
 use App\Models\Track;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -29,7 +30,8 @@ class PostController extends Controller
     {
         $cars = Car::all();
         $tracks = Track::all();
-        return view('posts.create', ['cars' => $cars, 'tracks' => $tracks]);
+        $tags = Tag::all();
+        return view('posts.create', ['cars' => $cars, 'tracks' => $tracks, 'tags' => $tags]);
     }
 
     /**
@@ -45,6 +47,7 @@ class PostController extends Controller
             'body' => 'required',
             'car_id' => 'required|exists:cars,id',
             'track_id' => 'required|exists:tracks,id',
+            'tags' => 'required|array',
         ]);
 
         $post = new Post;
@@ -54,6 +57,8 @@ class PostController extends Controller
         $post->track_id = $validatedPost['track_id'];
         $post->user_id = auth()->user()->id;
         $post->save();
+
+        $post->tags()->attach($validatedPost['tags']);
 
         session()->flash('message', 'The post was successfully saved!');
         return redirect()->route('posts.show', ['id' => $post->id]);

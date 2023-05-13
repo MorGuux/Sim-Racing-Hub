@@ -17,6 +17,11 @@
                 <option value="{{ $track->id }}">{{ $track->name }}</option>
             @endforeach
         </select></p>
+        <p>Image: <input type="text" name="image" value="{{ old('image') }}"></p>
+        <p>Tags: <select name="tags[]" multiple>
+            @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+            @endforeach
         <input type="submit" value="Create Post">
         <a href="{{ route('posts.index') }}">Cancel</a>
     </form>

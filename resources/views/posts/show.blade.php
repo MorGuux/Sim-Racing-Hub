@@ -12,11 +12,7 @@
         <li>Author: {{ $post->user->name }}</li>
         <li>Comments:
             <p>Add a comment</p>
-            <form method="POST" action="{{ route('comments.store', ['id' => $post->id]) }}">
-                @csrf
-                <input type="hidden" name="post_id" value="{{ $post->id }}">
-                <p>Body: <textarea name="body" value="{{ old('body') }}"></textarea></p>
-                <input type="submit" value="Add Comment">
+            @livewire('add-comment', ['post' => $post])
             <ul>
                 @foreach ($post->comments as $comment)
                     <div>
@@ -28,3 +24,5 @@
         </li>
     </ul>
 @endsection
+
+@livewireScripts

@@ -6,10 +6,10 @@
     <ul>
         <li>Name: {{ $user->name }}</li>
         <li>Email: {{ $user->email }}</li>
-        <li>Posts: 
+        <li>Posts:
             <ul>
                 @foreach ($user->posts as $post)
-                    <div>
+                    <div style="padding: 5px">
                         <li>Title: {{ $post->title }}</li>
                         <li>Body: {{ $post->body }}</li>
                         <li>Car: {{ $post->car->name }}</li>
@@ -21,7 +21,7 @@
         <li>Comments:
             <ul>
                 @foreach ($comments as $comment)
-                    <div>
+                    <div style="padding: 5px">
                         <li>Body: {{ $comment->body }}</li>
                         <li>Post: <a href="{{ route('posts.show', ['id' => $comment->post->id]) }}">{{ $comment->post->title }}</a></li>
                     </div>

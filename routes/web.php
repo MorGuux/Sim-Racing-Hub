@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 Route::group(['middleware' => ['auth', 'verified', 'is_admin']], function () {
     Route::get('/users', [ProfileController::class, 'index'])->name('users.index');

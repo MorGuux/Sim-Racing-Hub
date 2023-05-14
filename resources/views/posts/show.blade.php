@@ -9,7 +9,6 @@
         <li>Author: {{ $post->user->name }}</li>
         <li>Car: {{ $post->car->name }}</li>
         <li>Track: {{ $post->track->name }}</li>
-        <li>Author: {{ $post->user->name }}</li>
         <li>Comments:
             <p>Add a comment</p>
             @livewire('add-comment', ['post' => $post])

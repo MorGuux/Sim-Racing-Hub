@@ -9,12 +9,7 @@
         <li>Posts:
             <ul>
                 @foreach ($user->posts as $post)
-                    <div style="padding: 5px">
-                        <li>Title: {{ $post->title }}</li>
-                        <li>Body: {{ $post->body }}</li>
-                        <li>Car: {{ $post->car->name }}</li>
-                        <li>Track: {{ $post->track->name }}</li>
-                    </div>
+                    @include('components.post')
                 @endforeach
             </ul>
         </li>

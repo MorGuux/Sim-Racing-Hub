@@ -15,10 +15,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('posts.index', ['posts' => $posts]);
+        if ($request->tag) {
+            $posts = Tag::where('id', $request->tag)->firstOrFail()->posts;
+        } else {
+            $posts = Post::all();
+        }
+        $tags = Tag::all();
+        return view('posts.index', ['posts' => $posts, 'tags' => $tags]);
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('title', 'User Details')
 
 @section('content')
-    <ul>
+    <ul style="width: 50%; margin: auto">
         <li>Name: {{ $user->name }}</li>
         <li>Email: {{ $user->email }}</li>
         <li>Posts:
@@ -16,10 +16,8 @@
         <li>Comments:
             <ul>
                 @foreach ($comments as $comment)
-                    <div style="padding: 5px">
-                        <li>Body: {{ $comment->body }}</li>
-                        <li>Post: <a href="{{ route('posts.show', ['id' => $comment->post->id]) }}">{{ $comment->post->title }}</a></li>
-                    </div>
+                    @include('components.comment')
+
                 @endforeach
             </ul>
     </ul>

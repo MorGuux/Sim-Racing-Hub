@@ -5,7 +5,7 @@
 @section('content')
     <div style="width: 50%; margin: auto; margin-top: 20px; border: 1px solid #ccc;">
         <div style="display: table; align-items: center; padding: 20px; width: 100%">
-            @if(file_exists(public_path('storage/images/' . $post->image)))
+            @if ($post->image && file_exists(public_path('storage/images/' . $post->image)))
                 <img src="{{ asset('storage/images/' . $post->image) }}" alt="Article Image"
                     style="display: table-cell; width: 7.5rem; max-width: 7.5rem;">
             @else

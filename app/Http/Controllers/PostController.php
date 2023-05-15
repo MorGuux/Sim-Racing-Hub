@@ -100,7 +100,17 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        // Abort if the user isn't the owner of the post or not an admin
+        if ($post->user_id != auth()->user()->id && !auth()->user()->is_admin) {
+            abort(403);
+        }
+
+        $cars = Car::all();
+        $tracks = Track::all();
+        $tags = Tag::all();
+        return view('posts.edit', ['post' => $post, 'cars' => $cars, 'tracks' => $tracks, 'tags' => $tags]);
     }
 
     /**
@@ -112,7 +122,32 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the request
+        $validatedPost = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'car_id' => 'required|exists:cars,id',
+            'track_id' => 'required|exists:tracks,id',
+            'tags' => 'required|array',
+        ]);
+
+        $post = Post::findOrFail($id);
+
+        // Abort if the user isn't the owner of the post or not an admin
+        if ($post->user_id != auth()->user()->id && !auth()->user()->is_admin) {
+            abort(403);
+        }
+
+        $post->title = $validatedPost['title'];
+        $post->body = $validatedPost['body'];
+        $post->car_id = $validatedPost['car_id'];
+        $post->track_id = $validatedPost['track_id'];
+        $post->save();
+
+        $post->tags()->sync($validatedPost['tags']);
+
+        session()->flash('message', 'The post was successfully updated!');
+        return redirect()->route('posts.show', ['id' => $post->id]);
     }
 
     /**

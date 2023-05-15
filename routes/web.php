@@ -28,13 +28,17 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+
+Route::patch('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 Route::group(['middleware' => ['auth', 'verified', 'is_admin']], function () {
     Route::get('/users', [ProfileController::class, 'index'])->name('users.index');
-
-    Route::get('/users/{id}', [ProfileController::class, 'show'])->name('users.show');
 });
+
+Route::get('/users/{id}', [ProfileController::class, 'show'])->name('users.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -6,6 +6,7 @@
                     @csrf
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <textarea name="body" style="width: 100%">{{ old('body') }}</textarea>
+                </form>
             </div>
             <div style="float: right; margin: 10px">
                 <button type="submit" form="add-comment-form">Add Comment</button>

@@ -8,6 +8,14 @@
                 style="display: inherit; font-size: 16px; margin-bottom: 10px;">{{ $comment->user->name }}</a>
             <a
                 style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">{{ $comment->created_at->diffForHumans() }}</a>
+            @if ($comment->user->id == Auth::id() || Auth::user()->is_admin)
+                <form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">Delete</button>
+                </form>
+            @endif
         </div>
     </div>
 </div>

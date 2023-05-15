@@ -34,6 +34,8 @@ Route::patch('/posts/{id}', [PostController::class, 'update'])->name('posts.upda
 
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 Route::group(['middleware' => ['auth', 'verified', 'is_admin']], function () {

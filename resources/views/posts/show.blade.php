@@ -45,7 +45,7 @@
         <div style="align-items: center; padding: 20px; margin-top: 20px; margin: auto">
             @livewire('add-comment', ['post' => $post])
             <ul>
-                @foreach ($post->comments as $comment)
+                @foreach ($post->comments->sortByDesc('created_at') as $comment)
                     @include('components.comment')
                 @endforeach
             </ul>

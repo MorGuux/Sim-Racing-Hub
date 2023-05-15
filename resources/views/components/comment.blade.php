@@ -13,7 +13,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">Delete</button>
+                        style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right; float: right">Delete</button>
                 </form>
             @endif
         </div>

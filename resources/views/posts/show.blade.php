@@ -31,12 +31,12 @@
                         style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">{{ $post->created_at->diffForHumans() }}</a>
                     @if ($post->user->id == Auth::id() || Auth::user()->is_admin)
                         <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
-                            style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">Edit</a>
+                            style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right;">Edit</a>
                         <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right">Delete</button>
+                                style="display: inherit; font-size: 14px; margin-bottom: 10px; text-align: right; float: right">Delete</button>
                         </form>
                     @endif
                 </div>

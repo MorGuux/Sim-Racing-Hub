@@ -146,8 +146,7 @@ class PostController extends Controller
 
         $post->tags()->sync($validatedPost['tags']);
 
-        session()->flash('message', 'The post was successfully updated!');
-        return redirect()->route('posts.show', ['id' => $post->id]);
+        return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Post was successfully updated.');
     }
 
     /**

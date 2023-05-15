@@ -17,7 +17,6 @@
             <ul>
                 @foreach ($comments as $comment)
                     @include('components.comment')
-
                 @endforeach
             </ul>
     </ul>

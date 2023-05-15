@@ -26,4 +26,8 @@
             </li>
         @endforeach
     </ul>
+    <div style="width: 50%; margin: auto">
+        <!-- Pagination links -->
+        {{ $posts->links() }}
+    </div>
 @endsection

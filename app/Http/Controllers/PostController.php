@@ -7,6 +7,9 @@ use App\Models\Post;
 use App\Models\Car;
 use App\Models\Track;
 use App\Models\Tag;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostController extends Controller
 {
@@ -19,11 +22,19 @@ class PostController extends Controller
     {
         if ($request->tag) {
             $posts = Tag::where('id', $request->tag)->firstOrFail()->posts;
+            $posts = $this->paginate($posts);
         } else {
-            $posts = Post::all();
+            $posts = Post::paginate(10, ['*'], 'posts');
         }
         $tags = Tag::all();
         return view('posts.index', ['posts' => $posts, 'tags' => $tags]);
+    }
+
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     /**

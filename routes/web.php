@@ -32,6 +32,8 @@ Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edi
 
 Route::patch('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 Route::group(['middleware' => ['auth', 'verified', 'is_admin']], function () {

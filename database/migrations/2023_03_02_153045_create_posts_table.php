@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('car_id')->references('id')->on('cars')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('track_id')->references('id')->on('tracks')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

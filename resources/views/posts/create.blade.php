@@ -3,7 +3,7 @@
 @section('title', 'Create Post')
 
 @section('content')
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form enctype="multipart/form-data" method="POST" action="{{ route('posts.store') }}">
         @csrf
         <p>Title: <input type="text" name="title" value="{{ old('title') }}"></p>
         <p>Body: <textarea name="body" value="{{ old('body') }}"></textarea></p>
@@ -17,7 +17,7 @@
                 <option value="{{ $track->id }}">{{ $track->name }}</option>
             @endforeach
         </select></p>
-        <p>Image: <input type="text" name="image" value="{{ old('image') }}"></p>
+        <input type="file" name="image" id="image"></input>
         <p>Tags: <select name="tags[]" multiple>
             @foreach ($tags as $tag)
                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>

@@ -1,6 +1,11 @@
 <div style="display: table; width: 100%; align-items: center; padding: 20px; margin-top: 20px; border: 1px solid #ccc;">
-    <img src="https://picsum.photos/200/150?random={{ $post->id }}" alt="Article Image"
-        style="display: table-cell; width: 7.5rem; max-width: 7.5rem;">
+    @if ($post->image && file_exists(public_path('storage/images/' . $post->image)))
+        <img src="{{ asset('storage/images/' . $post->image) }}" alt="Article Image"
+            style="display: table-cell; width: 7.5rem; max-width: 7.5rem;">
+    @else
+        <img src="https://picsum.photos/200/150?random={{ $post->id }}" alt="Article Image"
+            style="display: table-cell; width: 7.5rem; max-width: 7.5rem;">
+    @endif
     <div style="display: table-cell; width: inherit; padding-left: inherit; vertical-align: middle">
         <div style="display: inline-table">
             <div>

@@ -63,14 +63,19 @@ class PostController extends Controller
             'body' => 'required',
             'car_id' => 'required|exists:cars,id',
             'track_id' => 'required|exists:tracks,id',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:10240',
             'tags' => 'required|array',
         ]);
+
+        $imageFileName = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/images', $imageFileName);
 
         $post = new Post;
         $post->title = $validatedPost['title'];
         $post->body = $validatedPost['body'];
         $post->car_id = $validatedPost['car_id'];
         $post->track_id = $validatedPost['track_id'];
+        $post->image = $imageFileName;
         $post->user_id = auth()->user()->id;
         $post->save();
 
@@ -128,6 +133,7 @@ class PostController extends Controller
             'body' => 'required',
             'car_id' => 'required|exists:cars,id',
             'track_id' => 'required|exists:tracks,id',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:10240',
             'tags' => 'required|array',
         ]);
 
@@ -138,10 +144,14 @@ class PostController extends Controller
             abort(403);
         }
 
+        $imageFileName = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/images', $imageFileName);
+
         $post->title = $validatedPost['title'];
         $post->body = $validatedPost['body'];
         $post->car_id = $validatedPost['car_id'];
         $post->track_id = $validatedPost['track_id'];
+        $post->image = $imageFileName;
         $post->save();
 
         $post->tags()->sync($validatedPost['tags']);
